@@ -1,5 +1,5 @@
 from pyspark import SparkConf, SparkContext
-from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession, Row
 from pyspark.sql.functions import to_date
 from operator import add
 import re
@@ -32,6 +32,13 @@ def clean_text(text):
     return text.split()  # Split on whitespace and return the list of words
 
 
+def contains_space(text):
+    if not text:  # Check for None or empty strings
+        return False
+    cleaned_words = clean_text(text)
+    return 'space' in cleaned_words
+
+
 if __name__ == "__main__":
     spark = SparkSession.builder \
         .appName("PowerConsumptionStats") \
@@ -39,6 +46,11 @@ if __name__ == "__main__":
         .config("spark.hadoop.validateOutputSpecs", "false") \
         .config("spark.hadoop.home.dir", "C:/Users/Asus/Downloads/spark-3.5.0-bin-hadoop3/spark-3.5.0-bin-hadoop3/bin") \
         .getOrCreate()
+        #.config("spark.driver.memory", "4g") \
+        #.config("spark.executor.memory", "4g") \
+        #.config("spark.memory.fraction", "0.8") \
+        #.config("spark.memory.storageFraction", "0.5") \
+        
 
     sc = spark.sparkContext
 
@@ -133,5 +145,33 @@ if __name__ == "__main__":
     # Save the result to a CSV
     per_date_word_count_pd.to_csv(
         "output/per_date_content_word_counts.csv", index=False)
+    
+    
+    ###################### TASK#4 ###########################
+    
+    # Map operation: Check if 'Title' and 'Postexcerpt' contain the term "Space"
+    def map_filter(row):
+        title = row['title'] or ""  # Use an empty string if the title is None
+        # Use an empty string if postexcerpt is None
+        postexcerpt = row['postexcerpt'] or ""
+
+        if "Space" in title and "Space" in postexcerpt:
+            return row
+        else:
+            return None
+
+
+    filtered_rdd = data.rdd.map(map_filter).filter(lambda x: x is not None)
+
+    # Convert the filtered RDD to a DataFrame
+    filtered_df = spark.createDataFrame(filtered_rdd, data.schema)
+
+    # Convert to Pandas for easier output handling
+    filtered_pd = filtered_df.toPandas()
+
+    # Save the result to a CSV
+    filtered_pd.to_csv("output/space_in_title_and_postexcerpt.csv", index=False)
+    
+    
     # Stop the SparkContext
     sc.stop()
