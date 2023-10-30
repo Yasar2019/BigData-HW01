@@ -39,12 +39,11 @@ if __name__ == "__main__":
         .master("spark://96.9.210.170:7077") \
         .config("spark.hadoop.validateOutputSpecs", "false") \
         .config("spark.hadoop.home.dir", "C:/Users/Asus/Downloads/spark-3.5.0-bin-hadoop3/spark-3.5.0-bin-hadoop3/bin") \
+        .config("spark.driver.memory", "4g") \
+        .config("spark.executor.memory", "4g") \
+        .config("spark.memory.fraction", "0.8") \
+        .config("spark.memory.storageFraction", "0.5") \
         .getOrCreate()
-        #.config("spark.driver.memory", "4g") \
-        #.config("spark.executor.memory", "4g") \
-        #.config("spark.memory.fraction", "0.8") \
-        #.config("spark.memory.storageFraction", "0.5") \
-
     sc = spark.sparkContext
 
 
