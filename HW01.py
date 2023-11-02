@@ -18,14 +18,14 @@ def word_count_per_date(date_title):
     return [(date, word.lower()) for word in words]
 
 def clean_text(text):
-    if text is None:  # Handle None values
+    if text is None:
         return []
-    text = text.lower()  # Convert to lowercase
-    text = re.sub(r"'s\b", '', text)  # Remove 's
-    text = re.sub(r"'\b", '', text)  # Remove trailing '
-    text = re.sub(r'\b"\b', '', text)  # Remove single quotes
-    text = re.sub(r'[^a-z\s]', '', text)  # Remove all non-letter characters
-    return text.split()  # Split on whitespace and return the list of words
+    text = text.lower()  
+    text = re.sub(r"'s\b", '', text)
+    text = re.sub(r"'\b", '', text)
+    text = re.sub(r'\b"\b', '', text)
+    text = re.sub(r'[^a-z\s]', '', text)
+    return text.split()
 
 def contains_space(text):
     if not text:  # Check for None or empty strings
