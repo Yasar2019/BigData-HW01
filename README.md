@@ -4,7 +4,8 @@
 ----------------------------------------------------------------------------------------------
 ### **Cluser Info**
 ![Alt text](image.png)
-![Alt text](<Screenshot 2023-10-30 161831.png>)
+![Alt text](image-1.png)
+![Alt text](image-2.png)
 ### 1. Project Setup and Information
 #### 1.1. Environment
 * **Python 3.11.4**
@@ -25,6 +26,10 @@ OpenJDK 64-Bit Server VM Temurin-17.0.1+12 (build 17.0.1+12, mixed mode, sharing
 #### You can find all the output files in the folder named "output"
 * **Output files:** [output](output)
 * **Output files format:** csv
+* **Task 1:** [First subtask](output/total_word_counts.csv), [Second subtask](output/per_date_word_counts.csv)
+* **Task 2:** [First subtask](output/total_content_word_counts.csv), [Second subtask](output\per_date_content_word_counts.csv)
+* **Task 3:** [First subtask](output/date_percentage.csv), [Second subtask](output\date_author_percentage.csv)
+* **Task 4:** [Output](output\space_in_title_and_postexcerpt.csv)
 
 #### 1.4. Code
 * **Code:** [HW01.py](HW01.py)

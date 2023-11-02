@@ -149,10 +149,10 @@ if __name__ == "__main__":
     #TASK #4 
     # Map operation: Check if 'Title' and 'Postexcerpt' contain the term "Space"
     def map_filter(row):
-        title = row['title'] or ""  # Use an empty string if the title is None
+        title = (row['title'] or "").lower()  # Use an empty string if the title is None
         # Use an empty string if postexcerpt is None
-        postexcerpt = row['postexcerpt'] or ""
-        if "Space" in title and "Space" in postexcerpt:
+        postexcerpt =(row['postexcerpt'] or "").lower()
+        if "space" in title and "space" in postexcerpt:
             return row
         else:
             return None
