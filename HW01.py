@@ -46,12 +46,11 @@ if __name__ == "__main__":
         .getOrCreate()
     sc = spark.sparkContext
 
-
-    #TASK #1 
     # Read the data
     data = spark.read.option("header", "true").option("quote", "\"").option(
         "escape", "\"").option("multiline", "true").csv('spacenews-202309.csv')
     
+    #TASK #1 
     # Extract titles and count words
     titles = data.rdd.map(lambda row: row['title'])
     total_word_counts = titles.flatMap(word_count_per_title).reduceByKey(
